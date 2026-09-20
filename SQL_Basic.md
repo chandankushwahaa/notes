@@ -2,8 +2,9 @@
 ### Index
 [0. MSSQL code](./images/SQL/salesdb.sql)
 
-[1. Advanced SQL Techniques]()
+[1. Advanced SQL Techniques (Subqueries, CTE, View, Temp Tables, Store proc, Trigger)]()
 
+[2. Performance Optimization (Index, Partitions, Performance Tips)]()
 
 # Advanced SQL Techniques
 ## Database Architecture
@@ -829,3 +830,24 @@ INSERT INTO Sales.Employees VALUES (6, 'Chandan', 'Kushwaha', 'IT', '2001-05-22'
 
 SELECT * FROM Sales.EmployeeLogs;  -- verify the log table
  ```
+
+
+ # Performance Optimization
+
+ ## 1. INDEX
+
+### TYPES:-
+**1. Structure**
+
+ - Clustered Index
+ - Non-Clustered Index
+
+**2. Storage**
+
+ - Rowstore Index
+ - Columnstore Index
+
+**3. Function**
+
+ - Unique Index
+ - Filtered Index
