@@ -1,5 +1,37 @@
 # MSSQL 
 
+# SYSTEM DATABASES
+
+## Types of Databases
+- **User Databases:** These databases are created by user which have permissions to create a database and can be dropped/altered without  having impact MSSQL server working.
+- **System Databases:** These are needed for you SQL server to operate.
+	-  These database keeps metadata about MSSQL instance.
+	- If you lose a system database like master then SQL server will not function correctly.
+	- These databases collectively maintain and manage lot of information about the SQL server  system like logins, databases, jobs, reports, etc.
+
+### 1. master 
+- Core system database to manage the SQL server instance.
+- It records all the system level information.
+- It records the existence of all other databases and the location of those database files.
+- Records the initialization information for SQL server. Therefore SQL server cannot start if the master database is unavailable.
+
+**Recommendation for Master Database**
+- Always have a current backup of the master database available.
+- Do not create user object in master. if do master must be backed up more frequently.
+
+**WHAT to do if master becomes unusable**
+- Restore master from a current database backup.
+- If you can start the instance, you should be able to restore master from a full database backup.
+- Rebuild master completely.
+- If server damage to master prevents you from starting SQL server you must rebuild master.
+
+
+	- **tempdb:** Temporary database to store temporary tables, table variable, cursors, work table, create or rebuild indexes sorted in tempDB.
+	- **MSDB:** primary database to manage the SQL server agent configurations.
+	- **Resource:** The resource database is responsible for physically storing all of the SQL server system objects.
+	- **Model:** template database for all user defined databases.
+	- **Distribution:** primary data to support SQL server replication.
+
 # Data Migration
 **Data Migration** is the process of moving or copying data from one database or database server to another. The goal is to transfer data while maintaining its integrity and consistency.
 
