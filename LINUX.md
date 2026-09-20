@@ -2,6 +2,7 @@ Content
 1. [Linux](#linux)
 2. [Disk Management](#2-disk-management-and-run-levels)
 3. [User Management](#3-user-management)
+4. [Permission Management](#4-linux-permission-management)
 
 # 1. LINUX
 Linux is a family of open-source Unix-like operating systems inspired by UNIX., based on the Linux kernel, a computer program that manages the system's hardware and software.
@@ -737,4 +738,183 @@ passwd -S chandan # to verify 'L' means account is locked
 usermod -U chandan # unlock user
 ```
 
-# 4. Networking, Services, & System Updates
+
+# 4 Linux Permission Management
+
+Linux permissions control **who can read, write, or execute** a file or directory.
+
+## 1. Permission Categories
+
+Linux permissions are mainly divided into three categories:
+
+| Category | Symbol | Meaning |
+|---|---|---|
+| User | `u` | File owner |
+| Group | `g` | Group associated with the file |
+| Others | `o` | Everyone else |
+
+There is also:
+
+| Symbol | Meaning |
+|---|---|
+| `a` | All → user + group + others |
+
+## 2. Basic Permissions
+
+Linux has three basic permissions:
+
+| Permission | Symbol | Meaning | Numeric |
+|---|---|---|---:|
+| Read | `r` | Read file contents | 4 |
+| Write | `w` | Modify file contents | 2 |
+| Execute | `x` | Execute a file / access directory | 1 |
+
+### Permission Combinations
+
+```text
+rwx = 4 + 2 + 1 = 7
+rw- = 4 + 2     = 6
+r-x = 4 + 1     = 5
+r-- = 4         = 4
+-wx = 2 + 1     = 3
+-w- = 2         = 2
+--x = 1         = 1
+--- = 0
+```
+
+## 3. Checking Permissions
+```bash
+ls -l
+# Example:
+-rwxr-xr-- 1 john developers 1024 Sep 20 10:30 script.sh
+
+- rwx r-x r--
+  │   │   │
+  │   │   └── Others
+  │   └────── Group
+  └────────── Owner
+```
+## 4. `chmod` – Change Permissions
+`chmod` is used to change file or directory permissions.
+```bash
+# Add execute permission to owner
+chmod u+x script.sh
+# Add write permission to group
+chmod g+w file.txt
+### Remove write permission from group
+chmod g-w file.txt
+### Add read permission to everyone
+chmod a+r file.txt
+### Remove execute permission from others
+chmod o-x script.sh
+### Give owner read/write
+chmod u+rw file.txt
+```
+
+## 5. chmod Operators
+
+`+` : Add permission
+`-` : Remove permission
+`=` : Set exact permission
+
+```bash
+chmod u+x script.sh
+chmod g-w file.txt
+chmod o=r file.txt
+```
+
+## 6. Numeric Permissions
+```bash
+chmod  755 script.sh
+# Owner  → 7 → rwx
+# Group  → 5 → r-x
+# Others → 5 → r-x
+# So, 755 = rwxr-xr-x
+
+chmod 600 secret.txt  	# Owner → rw-
+chmod 700 script.sh 	# Owner → rwx
+chmod 777 script.text 	# Owner  → rwx , Group  → rwx , Others → rwx
+```
+
+## 7. File Ownership
+Linux files have:
+
+1.  Owner/User
+2.  Group
+```bash
+ls -l 
+# -rw-r--r-- 1 root developers 1024 Sep 20 10:30 file.txt
+# Owner = root
+# Group = developers
+```
+## 8. `chown`– Change File Owner
+```bash
+sudo chown root file.txt 			# Change owner
+sudo chown nagios:nagios file.txt # Change owner and group
+sudo chown :developers file.txt 	# Change only group using chown
+```
+## 9. Recursive chown - `-R`
+```bash
+sudo chown -R john:developers project/
+```
+
+## 10. `chgrp` - Change Group Ownership
+`chgrp` changes the group ownership of a file or directory.
+```bash
+sudo chgrp developers project.txt
+sudo chgrp -R developers project/
+```
+|Command|Purpose  |
+|--|--|
+| `chown` | Change owner |
+| `chgrp` | Change group |
+| `chmod` | Change permissions |
+
+## 11. umask
+`umask` defines which permissions are removed from the default permissions when new files and directories are created.
+## 12. Viewing Detailed File Information
+```bash
+stat file.txt
+```
+## 13. sudo
+`sudo` allows an authorized user to execute commands with elevated privileges, commonly as root.
+```bash
+sudo -l # Check whether sudo is available:
+```
+**`/etc/sudoers`**
+Linux uses the sudoers configuration to determine:
+-   Who can use sudo
+-   Which commands they can run
+-   Which users they can run commands as
+-   Whether a password is required
+
+Main configuration file:
+```bash
+/etc/sudoers
+
+sudo visudo # editing sudoers
+john ALL=(ALL) ALL # Jhon can use sudo on all hosts
+```
+
+## 14. Sticky Bit
+Sticky Bit is commonly used on shared directories so users cannot delete or rename files owned by other users.
+
+## QUESTION: Permission Troubleshooting 
+### 1. When a user cannot access a file, check:
+```bash
+ls -l file.txt 				# Check permission, owner and group
+id username  				# check user's groups
+getfacl file.text 			# check ACL
+namei -l /path/to/file.txt 	# Check parent directory permissions
+sudo -l 					# Check sudo privileges
+```
+### 2. Common Permission Errors : Permission denied
+```bash
+-bash: ./script.sh: Permission denied
+
+ls -l script.sh
+chmod u+x script.sh  # If execute permission is missing:
+./script.sh
+```
+
+
