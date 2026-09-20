@@ -29,9 +29,11 @@ These models represent different layers of the cloud "stack".
 	- e.g- AWS EC2, Azure Virtual Machines, and Google Compute Engine.
     
 -   **Platform as a Service (PaaS):** Provides a platform allowing customers to develop, run, and manage applications without the complexity of managing the underlying infrastructure. Includes operating systems, programming language execution environment, database systems, and web servers. 
-	- e.g- AWS Elastic Beanstalk, Azure App Service, Google App Engine, Azure SQL DB
+	- e.g- AWS Elastic Beanstalk, Azure App Service, Google App Engine, Azure SQL Database
     
 -   **Software as a Service (SaaS):** Delivers software applications over the internet, on demand, typically on a subscription basis. Users access the software through a web browser or a dedicated client application without managing the underlying infrastructure, operating systems, etc. 
 	- e.g- Gmail, Salesforce, Dropbox, and Microsoft 365.
 -   **Serverless Computing (Function as a Service - FaaS):** Allows developers to run code without provisioning or managing servers. The cloud provider automatically allocates and manages the compute resources needed to run the code. Users are typically billed based on the number of executions and the resources consumed by the code. 
 	- e.g- Cloudflare, AWS Lambda, Azure Functions, Google Cloud Functions, Microsoft Fabric
+
+![](./images/cloudComputing/microsoft-cloud-services%20.png)
