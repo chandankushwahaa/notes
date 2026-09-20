@@ -54,6 +54,8 @@ Linux has hundreds of distributions (Linux OS versions). They are all based on t
 
 
 # 2. DISK MANAGEMENT AND RUN LEVELS
+Unlike Windows linux doesn't have C:, D: or E:. Instead linux has a single starting point called root directory. It is represented by one character (`/`).
+
 OS stores files and directories in an organized and structured way. There are many different types of filesystems. 
 
 Windows:-
@@ -67,19 +69,21 @@ Linux:-
 - xfs : High-performance server / large files (RHEL/Fedora)
 ```bash
 cd /
-ls -l  # list all the files structure
-/boot # contains file that is used by the boot loader (grub.cfg)
-/root # root user home directory. It is not same as /
-/dev # systems devices (e.x. disk, speakers, keyboards, etc)
-/etc # all configuration files
-/bin --> /usr/bin # everyday users commands
-/opt # optional add-on applications (not part of OS apps)
-/proc # running processes 
-/tmp # directory for temporary files
-/home # directory for user
-/var # system logs
-/run # system daemons that start very early to store temporary runtime file like PID files
-/mnt # to mount external filesystem (e.x NFS)
+ls -l    # list all the files structure
+/home    # directory for user. Everything related to account user. 
+/        # is the root of entire file system
+/root    # root user home directory. It is not same as /
+/boot    # contains file that is used by the boot loader (grub.cfg)
+/bin --> /usr/bin # everyday users commands store here like, ls, mv, cat, etc.
+/sbin    # system bin this contain admistrative tools used for managing OS. commands like networking, disk management booting system, etc.
+/etc     # all configuration files. to change networks settings edit file inside it.
+/dev     # systems devices (e.x. disk, speakers, keyboards, etc)
+/opt     # optional add-on applications (not part of OS apps)
+/proc    # virtual file system created by linux kernel. contain live infor about running processes 
+/tmp     # directory for temporary files
+/var     # system logs, application logs, email queues, databases and cache files.
+/run     # system daemons that start very early to store temporary runtime file like PID files
+/mnt     # to mount external filesystem (e.x NFS)
 ```
 ## Types of Disk
 1. SATA Disk :  Common interface for HDD/SSD.
